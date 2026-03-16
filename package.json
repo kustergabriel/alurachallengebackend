@@ -1,0 +1,24 @@
+{
+  "name": "alurachallengebackend",
+  "version": "1.0.0",
+  "description": "Após alguns testes com protótipos feitos pelo time de UX de uma empresa, foi requisitada a primeira versão de uma plataforma para compartilhamento de vídeos. A plataforma deve permitir ao usuário montar playlists com links para seus vídeos preferidos, separados por categorias.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kustergabriel/alurachallengebackend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/kustergabriel/alurachallengebackend/issues"
+  },
+  "homepage": "https://github.com/kustergabriel/alurachallengebackend#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  }
+}
