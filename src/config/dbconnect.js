@@ -1,4 +1,3 @@
-import e from 'express';
 import mysql from 'mysql2';
 import dotenv from 'dotenv';
 
