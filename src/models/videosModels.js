@@ -46,6 +46,21 @@ class Video {
             })
         })
     }
+
+    // funcao para deletar um video baseado no id
+    deletaVideo(id) {
+        const sql = 'DELETE FROM Videos WHERE id = ?'
+
+        return new Promise ((resolve,reject) =>{
+            database.query(sql, [id], (erro,resultado) => {
+                if (erro) {
+                    reject (erro)
+                } else {
+                    resolve(resultado)
+                }
+            })
+        })
+    }
 }
 
 export default new Video();

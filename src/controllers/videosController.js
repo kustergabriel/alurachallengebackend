@@ -17,6 +17,7 @@ class VideosController {
         try {
             const id = req.params.id
             const resultado = await videos.retornaVideo(id); // aqui ja retorna um objeto
+            console.log(resultado)
             if (resultado != 0) {
                 res.status (200).json({
                     resultado
@@ -47,7 +48,20 @@ class VideosController {
     }
     // deleta um video
     static async deleteVideo (req,res) {
-
+        try {
+            const id = req.params.id;
+            const resultado = await videos.deletaVideo(id);
+            console.log(resultado)
+            if (resultado.affectedRows != 0) {
+                res.status (200).json({
+                    mensagem: "Video deletado com sucesso!"
+                })
+            } else {
+                res.status(404).json ("Indice nao encontrado!")
+            }
+        } catch (error) {
+            console.log(error)
+        }
     }
     // atualiza um video
     static async putVideo (req,res) {
