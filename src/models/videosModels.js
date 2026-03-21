@@ -61,6 +61,36 @@ class Video {
             })
         })
     }
+
+    // funcao para atualizar TOTALMENTE as informacoes de um video
+    atualizaInfosVideo (titulo,descricao,url,id) {
+        const sql = 'UPDATE Videos SET titulo = ?, descricao = ? , url = ? WHERE id = ?'
+        return new Promise ((resolve,reject) => {
+            database.query (sql, [titulo,descricao,url,id], (erro,resultado) => {
+                if (erro) {
+                    reject (erro)
+                } else {
+                    resolve (resultado)
+                }
+            })
+        })
+    }
+
+    // funcao para atualizar parcialmente as informacoes de um video
+    atualizaInfoVideo (id, valores) {
+        const sql = 'UPDATE Videos SET ? WHERE id = ?'
+
+        return new Promise ((resolve,reject) => {
+            database.query(sql, [valores,id], (erro,resultado) => {
+                if (erro) {
+                    reject (erro)
+                } else {
+                    resolve (resultado)
+                }
+            })
+        })
+    }
+
 }
 
 export default new Video();
