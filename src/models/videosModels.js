@@ -1,6 +1,5 @@
 import database from '../config/dbconnect.js';
 
-
 class Video {
     // funcao para adicionar um video
     adicionaVideo(video) {

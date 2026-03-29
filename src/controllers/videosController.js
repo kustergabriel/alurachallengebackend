@@ -1,7 +1,7 @@
 import videos from '../models/videosModels.js';
 
 class VideosController {
-    // retorna a lista de videos
+
     static async getVideos (req,res) {
         try {
             const resultado = await videos.retornaVideos();
@@ -12,7 +12,7 @@ class VideosController {
             res.status(500).json({ erro: "Erro ao retornar vídeos" });
         } 
     }
-    // retorna apenas um video
+
     static async getVideo (req,res) {
         try {
             const id = req.params.id
@@ -31,10 +31,14 @@ class VideosController {
         }
 
     }
-    // cadastra um video
+
     static async postVideo (req,res) {
         try {
             const video = req.body;
+            const titulo = video.titulo // como req.body retorna um objeto, estou pegando apenas o campo q me interessa
+            if (!video.titulo || titulo.trim().length == 0) { // essa verificacao permite verificar se a string eh vazia
+                res.status(400).json({ erro: "Erro ao cadastrar vídeo, campo TITULO vazio!"}); // erro 400 pq o usuario mandou algo errado
+            } 
             const resultado = await videos.adicionaVideo(video);
             res.status(201).json({
                 mensagem: "Vídeo cadastrado com sucesso",
@@ -43,10 +47,10 @@ class VideosController {
             });
         } catch (erro) {
             console.error(erro);
-            res.status(500).json({ erro: "Erro ao cadastrar vídeo" });
+            res.status(500).json({ erro: "Erro ao cadastrar vídeo"});   
         }
     }
-    // deleta um video
+
     static async deleteVideo (req,res) {
         try {
             const id = req.params.id;
@@ -63,7 +67,7 @@ class VideosController {
             console.log(error)
         }
     }
-    // atualiza um video
+
     static async putVideo (req,res) {
         try {
             const {titulo, descricao, url} = req.body
@@ -83,7 +87,7 @@ class VideosController {
             console.log(error)
         }
     }
-    // atualiza parcialmente um video
+    
     static async patchVideo (req,res) {
         try {
         const valores = req.body
