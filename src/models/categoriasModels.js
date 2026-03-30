@@ -28,6 +28,20 @@ class Categoria {
             })
         })
     }
+
+    retornaCategoria (idCategoria) {
+        const sql = 'SELECT * FROM Categorias WHERE id = ?'
+
+        return new Promise ((resolve,reject) => {
+            database.query(sql, [idCategoria], (erro,resultado) => {
+                if (erro) {
+                    reject(erro)
+                } else {
+                    resolve(resultado)
+                }
+            })
+        })
+    }
 }
 
 export default new Categoria();

@@ -27,6 +27,19 @@ class categoriasController {
         }
     }
 
+    static async getCategoria(req, res) {
+        try {
+            const idCategoria = req.params.id
+            const resultado = await categorias.retornaCategoria(idCategoria);
+            res.status(200).json ({
+                resultado
+            })
+        } catch (error) {
+            console.error(error)
+            req.status(500).json ({mensagem: "Erro ao retornar categoria!"})
+        }
+    }
+
 }
 
 export default categoriasController
