@@ -42,6 +42,34 @@ class Categoria {
             })
         })
     }
+
+    atualizaTotalCategoria (id,titulo,cor) {
+        const sql = 'UPDATE Categorias SET titulo = ?, cor = ? WHERE id = ?'
+
+        return new Promise ((resolve,reject) => {
+            database.query(sql, [titulo,cor,id], (erro,resultado) => {
+                if (erro) {
+                    reject(erro)
+                } else {
+                    resolve(resultado)
+                }
+            })
+        })
+    }
+
+    atualizaParcialCategoria (id, valores) {
+        const sql = 'UPDATE Categorias SET ? WHERE id = ?'
+
+        return new Promise ((resolve,reject) => {
+            database.query(sql, [valores,id], (erro,resultado) => {
+                if (erro) {
+                    reject(erro)
+                } else {
+                    resolve(resultado)
+                }
+            })
+        })
+    }
 }
 
 export default new Categoria();

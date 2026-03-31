@@ -65,6 +65,7 @@ class VideosController {
             }
         } catch (error) {
             console.log(error)
+            res.status(500).json({ erro: "Erro ao cadastrar vídeo"});
         }
     }
 
@@ -85,6 +86,8 @@ class VideosController {
                 }
         } catch (error) {
             console.log(error)
+            res.status(500).json({ erro: "Erro ao atualizar vídeo"});
+
         }
     }
     
@@ -101,6 +104,7 @@ class VideosController {
                 }
     } catch (error) {
         console.log(error)
+        res.status(500).json({ erro: "Erro ao atualizar vídeo"});
         }
     }
 }
