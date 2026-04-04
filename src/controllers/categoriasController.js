@@ -1,14 +1,22 @@
+import categoriasModels from "../models/categoriasModels.js";
 import categorias from "../models/categoriasModels.js"
 
 class categoriasController {
     static async postCategoria (req,res) {
+        // o if dentro do trycatch para verificacao nao esta errado, porem o trycatch serve para tratar erros que nao sabemos que poderao acontecer...
+        const categoria = req.body
+        if (!categoria.titulo || !categoria.cor) {
+                res.status(400).json({
+                mensagem: "O campo titulo é obrigatório!"
+            })} 
+        
         try {
-            const categoria = req.body
             const resultado = await categorias.adicionaCategoria(categoria);
             res.status(201).json({
                 categoria,
                 mensagem: "Categoria criada com sucesso!"
             }) 
+            
         } catch (error) {
             console.error(error)
             res.status(500).json ({error: "Erro ao criar categoria!"})
@@ -74,6 +82,23 @@ class categoriasController {
         } catch (error) {
             console.error(error)
             res.status(500).json({ erro: "Erro ao atualizar vídeo"});
+        }
+    }
+
+    static async deleteCategoria (req,res) {
+        try {
+            const id = req.params.id
+            const resultado = await categorias.deleteCategoria(id)
+            if (resultado.affectedRows != 0) {
+                res.status (200).json({
+                    mensagem: "Categoria deletada com sucesso!"
+                })
+            } else {
+                res.status(404).json ("Indice nao encontrado!")
+            }
+        } catch (error) {
+            console.log(error)
+            res.status(500).json({ erro: "Erro ao deletar categoria"});
         }
     }
 

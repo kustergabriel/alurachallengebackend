@@ -70,6 +70,20 @@ class Categoria {
             })
         })
     }
+
+    deleteCategoria (id) {
+        const sql = 'DELETE FROM Categorias where id = ?'
+
+        return new Promise ((resolve,reject) => {
+            database.query(sql, [id], (erro,resultado) => {
+                if (erro) {
+                    reject(erro)
+                } else {
+                    resolve(resultado)
+                }
+            })
+        })
+    }
 }
 
 export default new Categoria();

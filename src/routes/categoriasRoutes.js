@@ -8,5 +8,6 @@ router.get ('/', categoriasController.getCategorias);
 router.get ('/:id', categoriasController.getCategoria);
 router.put ('/:id', categoriasController.putCategoria);
 router.patch ('/:id', categoriasController.patchCategoria);
+router.delete ('/:id', categoriasController.deleteCategoria);
 
 export default router;

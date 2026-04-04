@@ -90,6 +90,20 @@ class Video {
         })
     }
 
+
+    listarVideosPorCategoria (id) {
+        const sql = 'SELECT * FROM Videos WHERE idCategoria = ?'
+
+        return new Promise ((resolve,reject) => {
+            database.query(sql, [id], (erro,resultado) => {
+                if (erro) {
+                    reject (erro)
+                } else {
+                    resolve (resultado)
+                }
+            })
+        })
+    }
 }
 
 export default new Video();

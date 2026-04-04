@@ -33,21 +33,26 @@ class VideosController {
     }
 
     static async postVideo (req,res) {
+        
+        const video = req.body;
+        if (!video.titulo || video.titulo.trim().length == 0) { // essa verificacao permite verificar se a string eh vazia
+            return res.status(400).json({ erro: "Erro ao cadastrar vídeo, campo TITULO vazio!"}); // erro 400 pq o usuario mandou algo errado
+        } 
+
+        if (!video.idCategoria) {
+            video.idCategoria = 1
+        }
+        
         try {
-            const video = req.body;
-            const titulo = video.titulo // como req.body retorna um objeto, estou pegando apenas o campo q me interessa
-            if (!video.titulo || titulo.trim().length == 0) { // essa verificacao permite verificar se a string eh vazia
-                res.status(400).json({ erro: "Erro ao cadastrar vídeo, campo TITULO vazio!"}); // erro 400 pq o usuario mandou algo errado
-            } 
             const resultado = await videos.adicionaVideo(video);
-            res.status(201).json({
+            return res.status(201).json({
                 mensagem: "Vídeo cadastrado com sucesso",
                 id: resultado.insertId,
                 video
             });
         } catch (erro) {
             console.error(erro);
-            res.status(500).json({ erro: "Erro ao cadastrar vídeo"});   
+            return res.status(500).json({ erro: "Erro ao cadastrar vídeo"});   
         }
     }
 
@@ -65,7 +70,7 @@ class VideosController {
             }
         } catch (error) {
             console.log(error)
-            res.status(500).json({ erro: "Erro ao cadastrar vídeo"});
+            res.status(500).json({ erro: "Erro ao deletar vídeo"});
         }
     }
 
@@ -105,6 +110,20 @@ class VideosController {
     } catch (error) {
         console.log(error)
         res.status(500).json({ erro: "Erro ao atualizar vídeo"});
+        }
+    }
+
+    static async getVideosPorCategoria (req,res) {
+        try {
+            const id = req.params.id
+            const resultado = await videos.listarVideosPorCategoria(id)
+            return res.status(200).json ({
+                resultado
+            })
+            console.log(resultado)
+        } catch (error) {
+            console.log(error)
+            return res.status(500).json({ erro: "Erro ao retornar videos pela categoria"});
         }
     }
 }
