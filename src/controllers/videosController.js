@@ -3,14 +3,29 @@ import videos from '../models/videosModels.js';
 class VideosController {
 
     static async getVideos (req,res) {
+        const { titulo } = req.query // pegamos exatamente o titulo da query
+
+        if (titulo) {
+            try {
+                const resultado = await videos.retornaPorNome(titulo)
+                return res.status(200).json({
+                    resultado
+                })
+            } catch (error) {
+                console.error(error)
+                return res.status(500).json ({erro: "Erro ao retornar videos pelo nome!"})
+            }
+        } else {
+
         try {
             const resultado = await videos.retornaVideos();
-            res.status(200).json({
+            return res.status(200).json({
                 resultado
             });
         } catch (error) {
-            res.status(500).json({ erro: "Erro ao retornar vídeos" });
-        } 
+            return res.status(500).json({ erro: "Erro ao retornar vídeos" });
+            } 
+        }
     }
 
     static async getVideo (req,res) {
@@ -35,7 +50,7 @@ class VideosController {
     static async postVideo (req,res) {
         
         const video = req.body;
-        if (!video.titulo || video.titulo.trim().length == 0) { // essa verificacao permite verificar se a string eh vazia
+        if (!video.titulo || video.titulo.trim().length == 0) { // permite se a string eh vazia
             return res.status(400).json({ erro: "Erro ao cadastrar vídeo, campo TITULO vazio!"}); // erro 400 pq o usuario mandou algo errado
         } 
 

@@ -104,6 +104,20 @@ class Video {
             })
         })
     }
+
+    retornaPorNome (titulo) {
+        const sql = 'SELECT * FROM Videos WHERE titulo = ?'
+
+        return new Promise ((resolve,reject) => {
+            database.query(sql, [titulo], (erro,resultado) => {
+                if (erro) {
+                    reject(erro)
+                } else {
+                    resolve(resultado)
+                }
+            }) 
+        })
+    }
 }
 
 export default new Video();
